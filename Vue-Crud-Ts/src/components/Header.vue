@@ -6,8 +6,12 @@
         <h1>Vue Todos</h1>
       </div>
       <ul class="header__menu">
-        <li>Home</li>
-        <li>About</li>
+        <li>
+          <router-link to="/">Home</router-link>
+        </li>
+        <li>
+          <router-link to="/about">About</router-link>
+        </li>
       </ul>
     </nav>
   </header>
