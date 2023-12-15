@@ -8,9 +8,11 @@
       <ul class="header__menu">
         <li>
           <router-link to="/">Home</router-link>
+          <div></div>
         </li>
         <li>
           <router-link to="/about">About</router-link>
+          <div></div>
         </li>
       </ul>
     </nav>
