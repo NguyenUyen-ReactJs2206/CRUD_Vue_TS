@@ -1,0 +1,78 @@
+@import "./responsive.scss";
+@import url("https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap");
+
+#app {
+  font-family: Rubik, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Global Style */
+:root {
+  --primary: #259875;
+  --secondary: #202726;
+  --third: #e0e0e0;
+  --dark: #0b0f0e;
+  --light: #ffffff;
+  --error: #f12369;
+
+  --font: "Nunito", sans-serif;
+  --textSize: 16px;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  background-color: var(--light);
+  color: var(--dark);
+  font-family: var(--font);
+  font-size: var(--textSize);
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* Header Style */
+.header {
+  background-color: var(--third);
+
+  &__nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 25px 20px;
+  }
+
+  &__container {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  &__branding {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    & img {
+      max-width: 50px;
+    }
+
+    & h1 {
+      font-size: 24px;
+    }
+  }
+
+  &__menu {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    gap: 8px;
+  }
+}
