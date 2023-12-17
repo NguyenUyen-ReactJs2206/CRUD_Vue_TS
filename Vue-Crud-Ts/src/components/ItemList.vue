@@ -1,5 +1,5 @@
 <template>
-  <li v-for="todo in todos" :key="todo.id">
+  <li v-for="(todo, index) in todos" :key="todo.id">
     <input
       type="checkbox"
       v-model="todo.completed"
@@ -50,7 +50,7 @@
 <script setup lang="ts">
 import { TodoInterface } from "../types/todoList.type";
 
-const { todos, index } = defineProps(["todos", "index"]) as {
+const { todos } = defineProps(["todos"]) as {
   todos: TodoInterface[];
   index: number;
 };
