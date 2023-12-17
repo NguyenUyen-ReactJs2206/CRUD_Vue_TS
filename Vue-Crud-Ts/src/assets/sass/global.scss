@@ -14,7 +14,7 @@
   --third: #e0e0e0;
   --dark: #0b0f0e;
   --light: #ffffff;
-  --error: #f12369;
+  --error: #fa040c;
 
   --font: "Nunito", sans-serif;
   --textSize: 16px;
@@ -125,7 +125,6 @@ body {
     display: flex;
     width: 100%;
     border: 2px solid var(--primary);
-
     input {
       width: 100%;
       padding: 10px 8px;
@@ -154,6 +153,10 @@ body {
     &:focus-within {
       box-shadow: 0 0 5px rgba(76, 175, 80, 0.7);
     }
+  }
+
+  div.input-error {
+    border: 2px solid var(--error);
   }
 
   ul.todo-list {
@@ -185,9 +188,16 @@ body {
       }
 
       .todo {
-        width: fit-content;
         flex: 1;
-        word-wrap: break-word;
+        input {
+          width: 100%;
+          padding: 6px 2px;
+          font-size: medium;
+        }
+        p {
+          width: fit-content;
+          word-wrap: break-word;
+        }
       }
 
       .icon {
@@ -208,4 +218,11 @@ body {
       }
     }
   }
+}
+
+//ERROR
+p.error-msg {
+  color: var(--error);
+  text-align: left;
+  width: 100%;
 }

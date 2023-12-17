@@ -1,5 +1,5 @@
 <template>
-  <div class="input-wrap">
+  <div class="input-wrap" :class="{ 'input-error': todoState.invalid }">
     <input
       type="text"
       v-model="todoState.todo"
@@ -7,7 +7,7 @@
     />
     <button type="submit" @click="createTodo()">Create</button>
   </div>
-  <p v-show="todoState.invalid" class="err-msg">
+  <p v-show="todoState.invalid" class="error-msg">
     {{ todoState.errMsg }}
   </p>
 </template>

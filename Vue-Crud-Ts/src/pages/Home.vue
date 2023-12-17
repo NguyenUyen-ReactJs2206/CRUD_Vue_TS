@@ -2,11 +2,11 @@
   <main class="home">
     <h1>Create Todo</h1>
     <TodoCreate @create-todo="createTodo" />
-    <!-- <p>😟 You have no todo's to completed! Add one!</p> -->
-    <ul class="todo-list">
-      <ItemList :todos="todos" />
-    </ul>
 
+    <ul class="todo-list" v-if="todos.length > 0">
+      <ItemList :todos="todos" @toggle-complete="toggleTodoComplete" />
+    </ul>
+    <p class="todos-msg" v-else>😟 You have no todo's to completed! Add one!</p>
     <!-- <p>🎉 You have completed all your todos!</p> -->
   </main>
 </template>
@@ -29,5 +29,10 @@ const createTodo = (newTodo: string) => {
       isEditing: false,
     });
   }
+};
+
+const toggleTodoComplete = (index: number) => {
+  todos[index].completed = !todos[index].completed;
+  console.log(index);
 };
 </script>

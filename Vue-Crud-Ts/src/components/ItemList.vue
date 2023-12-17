@@ -1,8 +1,27 @@
 <template>
   <li v-for="todo in todos" :key="todo.id">
-    <input type="checkbox" v-model="todo.completed" />
-    <div class="todo">{{ todo.name }}</div>
+    <input
+      type="checkbox"
+      v-model="todo.completed"
+      @input="$emit('toggle-complete', index)"
+    />
+    <div class="todo">
+      <input type="text" v-if="todo.isEditing" />
+      <p v-else>{{ todo.name }}</p>
+    </div>
     <div class="icon">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        height="20"
+        width="20"
+        viewBox="0 0 512 512"
+        v-if="todo.isEditing"
+      >
+        <path
+          d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z"
+        />
+      </svg>
+
       <svg
         xmlns="http://www.w3.org/2000/svg"
         height="18"
@@ -31,5 +50,10 @@
 <script setup lang="ts">
 import { TodoInterface } from "../types/todoList.type";
 
-const { todos } = defineProps(["todos"]) as { todos: TodoInterface[] };
+const { todos, index } = defineProps(["todos", "index"]) as {
+  todos: TodoInterface[];
+  index: number;
+};
+
+defineEmits(["toggle-complete"]);
 </script>
