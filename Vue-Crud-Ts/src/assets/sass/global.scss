@@ -193,10 +193,24 @@ body {
           width: 100%;
           padding: 6px 2px;
           font-size: medium;
+          border: none;
+          appearance: none;
+
+          &:focus {
+            outline: none;
+          }
+
+          &:focus-within {
+            box-shadow: 0 0 5px rgba(76, 175, 80, 0.7);
+          }
         }
-        p {
+        span {
           width: fit-content;
           word-wrap: break-word;
+
+          &.completed-todo {
+            text-decoration: line-through;
+          }
         }
       }
 
@@ -226,3 +240,5 @@ p.error-msg {
   text-align: left;
   width: 100%;
 }
+
+//BIND CLASS

@@ -4,7 +4,12 @@
     <TodoCreate @create-todo="createTodo" />
 
     <ul class="todo-list" v-if="todos.length > 0">
-      <ItemList :todos="todos" @toggle-complete="toggleTodoComplete($event)" />
+      <ItemList
+        :todos="todos"
+        @toggle-complete="toggleTodoComplete"
+        @edit-todo="toggleEditTodo"
+        @update-todo="updateTodo"
+      />
     </ul>
     <p class="todos-msg" v-else>😟 You have no todo's to completed! Add one!</p>
     <!-- <p>🎉 You have completed all your todos!</p> -->
@@ -32,7 +37,16 @@ const createTodo = (newTodo: string) => {
 };
 
 const toggleTodoComplete = (index: number) => {
-  todos[index].completed != todos[index].completed;
+  todos[index].completed = !todos[index].completed;
+};
+
+const toggleEditTodo = (index: number) => {
+  todos[index].isEditing = !todos[index].isEditing;
   console.log(index, "iiiiiiii");
+};
+
+const updateTodo = (value: string, index: number) => {
+  console.log(value, index);
+  todos[index].name = value;
 };
 </script>
