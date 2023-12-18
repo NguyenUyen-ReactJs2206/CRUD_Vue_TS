@@ -9,6 +9,7 @@
         @toggle-complete="toggleTodoComplete"
         @edit-todo="toggleEditTodo"
         @update-todo="updateTodo"
+        @delete-todo="deleteTodo"
       />
     </ul>
     <p class="todos-msg" v-else>😟 You have no todo's to completed! Add one!</p>
@@ -49,4 +50,10 @@ const updateTodo = (value: string, index: number) => {
   console.log(value, index);
   todos[index].name = value;
 };
+
+const deleteTodo = (index: number) => {
+  todos.splice(index, 1);
+};
+
+console.log(todos);
 </script>
