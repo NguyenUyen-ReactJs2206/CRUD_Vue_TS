@@ -23,10 +23,10 @@ import ItemList from "../components/ItemList.vue";
 import TodoCreate from "../components/TodoCreate.vue";
 import { StateType } from "../types/todoList.type";
 import { uid } from "uid";
-import {
-  setTodosToLocalStorage,
-  fetchTodosfromLocalStorage,
-} from "../utils/localstorage";
+// import {
+//   setTodosToLocalStorage,
+//   fetchTodosfromLocalStorage,
+// } from "../utils/localstorage";
 
 const state: StateType = reactive({
   todos: [],
@@ -34,13 +34,31 @@ const state: StateType = reactive({
 
 watch(
   state,
-  () => {
-    setTodosToLocalStorage(state.todos);
+  async () => {
+    await setTodosToLocalStorage();
   },
   { deep: true }
 );
 
-fetchTodosfromLocalStorage(state);
+const setTodosToLocalStorage = async () => {
+  localStorage.setItem("todos", JSON.stringify(state.todos));
+};
+
+const fetchTodosfromLocalStorage = async () => {
+  const savedTodosJSON = localStorage.getItem("todos");
+
+  if (savedTodosJSON) {
+    try {
+      const saveTodos = JSON.parse(savedTodosJSON);
+      state.todos = saveTodos;
+    } catch (error) {
+      console.error("Error parsing JSON:", error);
+      // Xử lý lỗi phân tích JSON
+    }
+  }
+};
+
+fetchTodosfromLocalStorage();
 
 const createTodo = (newTodo: string) => {
   if (newTodo.trim() !== "") {
@@ -51,8 +69,6 @@ const createTodo = (newTodo: string) => {
       isEditing: false,
     });
   }
-
-  // setTodosToLocalStorage(state.todos);
 };
 
 const toggleTodoComplete = (index: number) => {
