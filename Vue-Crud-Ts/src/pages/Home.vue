@@ -51,8 +51,11 @@ const updateTodo = (value: string, index: number) => {
   todos[index].name = value;
 };
 
-const deleteTodo = (index: number) => {
-  todos.splice(index, 1);
+const deleteTodo = (todoId: number) => {
+  const indexToRemove = todos.findIndex((todo) => todo.id === todoId);
+  if (indexToRemove !== -1) {
+    todos.splice(indexToRemove, 1); // Sử dụng phương thức mảng
+  }
 };
 
 console.log(todos);
