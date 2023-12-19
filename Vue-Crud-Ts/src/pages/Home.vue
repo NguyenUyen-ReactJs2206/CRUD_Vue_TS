@@ -13,12 +13,12 @@
       />
     </ul>
     <p class="todos-msg" v-else>😟 You have no todo's to completed! Add one!</p>
-    <!-- <p>🎉 You have completed all your todos!</p> -->
+    <p v-if="completedAll">{{ completedAll }}</p>
   </main>
 </template>
 
 <script setup lang="ts">
-import { reactive } from "vue";
+import { computed, reactive } from "vue";
 import ItemList from "../components/ItemList.vue";
 import TodoCreate from "../components/TodoCreate.vue";
 import { TodoInterface } from "../types/todoList.type";
@@ -46,9 +46,9 @@ const toggleEditTodo = (index: number) => {
   console.log(index, "iiiiiiii");
 };
 
-const updateTodo = (value: string, index: number) => {
-  console.log(value, index);
-  todos[index].name = value;
+const updateTodo = (newValue: string, index: number) => {
+  console.log(newValue, index);
+  todos[index].name = newValue;
 };
 
 const deleteTodo = (todoId: number) => {
@@ -58,5 +58,19 @@ const deleteTodo = (todoId: number) => {
   }
 };
 
-console.log(todos);
+//watch item when change
+const completedAll = computed(() => {
+  let all = todos.length;
+  let countCompleted = 0;
+
+  todos.forEach((todo) => {
+    if (todo.completed) {
+      countCompleted++;
+    }
+  });
+
+  return countCompleted === all
+    ? "🎉 You have completed all your todos!"
+    : "😟 You haven't completed all your todos!";
+});
 </script>
