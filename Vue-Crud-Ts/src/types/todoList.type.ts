@@ -10,3 +10,7 @@ export interface TodoStateInterface {
   invalid: boolean | null;
   errMsg: string;
 }
+
+export type StateType = {
+  todos: TodoInterface[];
+};

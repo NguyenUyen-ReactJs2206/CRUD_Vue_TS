@@ -3,9 +3,9 @@
     <h1>Create Todo</h1>
     <TodoCreate @create-todo="createTodo" />
 
-    <ul class="todo-list" v-if="todos.length > 0">
+    <ul class="todo-list" v-if="state.todos.length > 0">
       <ItemList
-        :todos="todos"
+        :todos="state.todos"
         @toggle-complete="toggleTodoComplete"
         @edit-todo="toggleEditTodo"
         @update-todo="updateTodo"
@@ -21,56 +21,68 @@
 import { computed, reactive } from "vue";
 import ItemList from "../components/ItemList.vue";
 import TodoCreate from "../components/TodoCreate.vue";
-import { TodoInterface } from "../types/todoList.type";
+import { StateType } from "../types/todoList.type";
 import { uid } from "uid";
+import {
+  setTodosToLocalStorage,
+  fetchTodosfromLocalStorage,
+} from "../utils/localstorage";
 
-const todos: TodoInterface[] = reactive([]);
+const state: StateType = reactive({
+  todos: [],
+});
+
+fetchTodosfromLocalStorage(state);
 
 const createTodo = (newTodo: string) => {
   if (newTodo.trim() !== "") {
-    todos.push({
+    state.todos.push({
       id: uid(),
       name: newTodo,
       completed: false,
       isEditing: false,
     });
   }
+
+  setTodosToLocalStorage(state.todos);
 };
 
 const toggleTodoComplete = (index: number) => {
-  todos[index].completed = !todos[index].completed;
+  state.todos[index].completed = !state.todos[index].completed;
+  setTodosToLocalStorage(state.todos);
 };
 
 const toggleEditTodo = (index: number) => {
-  todos[index].isEditing = !todos[index].isEditing;
-  console.log(index, "iiiiiiii");
+  state.todos[index].isEditing = !state.todos[index].isEditing;
+  setTodosToLocalStorage(state.todos);
 };
 
 const updateTodo = (newValue: string, index: number) => {
-  console.log(newValue, index);
-  todos[index].name = newValue;
+  state.todos[index].name = newValue;
+  setTodosToLocalStorage(state.todos);
 };
 
 const deleteTodo = (todoId: number) => {
-  const indexToRemove = todos.findIndex((todo) => todo.id === todoId);
+  const indexToRemove = state.todos.findIndex((todo) => todo.id === todoId);
   if (indexToRemove !== -1) {
-    todos.splice(indexToRemove, 1); // Sử dụng phương thức mảng
+    state.todos.splice(indexToRemove, 1); // Sử dụng phương thức mảng
   }
+  setTodosToLocalStorage(state.todos);
 };
 
 //watch item when change
 const completedAll = computed(() => {
-  let all = todos.length;
+  let all = state.todos.length;
   let countCompleted = 0;
 
-  todos.forEach((todo) => {
+  state.todos.forEach((todo) => {
     if (todo.completed) {
       countCompleted++;
     }
   });
 
-  return countCompleted === all
+  return countCompleted === all && countCompleted > 0
     ? "🎉 You have completed all your todos!"
-    : "😟 You haven't completed all your todos!";
+    : "";
 });
 </script>

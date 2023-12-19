@@ -1,8 +1,12 @@
-import { TodoInterface } from "../types/todoList.type";
+import { StateType, TodoInterface } from "../types/todoList.type";
 
-export const saveToLocalStorage = (todos: TodoInterface[]) => {
+export const setTodosToLocalStorage = (todos: TodoInterface[]) => {
   localStorage.setItem("todos", JSON.stringify(todos));
 };
 
-export const getTodosFromLocalStorage = () =>
-  localStorage.getItem("todos") || "";
+export const fetchTodosfromLocalStorage = (state: StateType) => {
+  const saveTodos = JSON.parse(localStorage.getItem("todos") || "");
+  if (saveTodos) {
+    state.todos = saveTodos;
+  }
+};
