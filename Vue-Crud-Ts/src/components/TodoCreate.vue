@@ -4,8 +4,9 @@
       type="text"
       v-model="todoState.todo"
       placeholder="Nhập việc cần làm..."
+      @keyup.enter="createTodo"
     />
-    <button type="submit" @click="createTodo()">Create</button>
+    <button type="submit" @click="createTodo">Create</button>
   </div>
   <p v-show="todoState.invalid" class="error-msg">
     {{ todoState.errMsg }}

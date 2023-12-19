@@ -18,7 +18,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, reactive } from "vue";
+import { computed, reactive, watch } from "vue";
 import ItemList from "../components/ItemList.vue";
 import TodoCreate from "../components/TodoCreate.vue";
 import { StateType } from "../types/todoList.type";
@@ -32,6 +32,14 @@ const state: StateType = reactive({
   todos: [],
 });
 
+watch(
+  state,
+  () => {
+    setTodosToLocalStorage(state.todos);
+  },
+  { deep: true }
+);
+
 fetchTodosfromLocalStorage(state);
 
 const createTodo = (newTodo: string) => {
@@ -44,22 +52,22 @@ const createTodo = (newTodo: string) => {
     });
   }
 
-  setTodosToLocalStorage(state.todos);
+  // setTodosToLocalStorage(state.todos);
 };
 
 const toggleTodoComplete = (index: number) => {
   state.todos[index].completed = !state.todos[index].completed;
-  setTodosToLocalStorage(state.todos);
+  // setTodosToLocalStorage(state.todos);
 };
 
 const toggleEditTodo = (index: number) => {
   state.todos[index].isEditing = !state.todos[index].isEditing;
-  setTodosToLocalStorage(state.todos);
+  // setTodosToLocalStorage(state.todos);
 };
 
 const updateTodo = (newValue: string, index: number) => {
   state.todos[index].name = newValue;
-  setTodosToLocalStorage(state.todos);
+  // setTodosToLocalStorage(state.todos);
 };
 
 const deleteTodo = (todoId: number) => {
@@ -67,7 +75,7 @@ const deleteTodo = (todoId: number) => {
   if (indexToRemove !== -1) {
     state.todos.splice(indexToRemove, 1); // Sử dụng phương thức mảng
   }
-  setTodosToLocalStorage(state.todos);
+  // setTodosToLocalStorage(state.todos);
 };
 
 //watch item when change
