@@ -10,7 +10,9 @@
         type="text"
         v-if="todo.isEditing"
         :value="todo.name"
-        @input="$emit('update-todo', $event.target?.value, index)"
+        @input="
+          $emit('update-todo', ($event.target as HTMLInputElement).value, index)
+        "
       />
       <span v-else :class="{ 'completed-todo': todo.completed }">{{
         todo.name
